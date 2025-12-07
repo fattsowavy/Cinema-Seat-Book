@@ -80,13 +80,29 @@ def main():
     booking_system = CinemaBookingSystem()
     
     # Buat threaded XML-RPC server pada port 8000
-    server = ThreadedXMLRPCServer(("localhost", 8000), allow_none=True)
-    print("=" * 50)
+    # Gunakan "0.0.0.0" agar bisa diakses dari komputer lain di jaringan
+    HOST = "0.0.0.0"  # Bind ke semua network interfaces
+    PORT = 8000
+    
+    server = ThreadedXMLRPCServer((HOST, PORT), allow_none=True)
+    
+    # Dapatkan IP address komputer ini
+    import socket
+    hostname = socket.gethostname()
+    local_ip = socket.gethostbyname(hostname)
+    
+    print("=" * 60)
     print("Cinema Seat Booking Server")
-    print("=" * 50)
-    print("Server running on http://localhost:8000")
+    print("=" * 60)
+    print(f"Server running on:")
+    print(f"  - Local:   http://localhost:{PORT}")
+    print(f"  - Network: http://{local_ip}:{PORT}")
+    print()
+    print("Untuk koneksi dari komputer lain, gunakan:")
+    print(f"  http://{local_ip}:{PORT}")
+    print("=" * 60)
     print("Waiting for client connections...")
-    print("=" * 50)
+    print("=" * 60)
     
     # Register fungsi-fungsi yang bisa dipanggil oleh client
     server.register_function(booking_system.get_seat_map, "get_seat_map")

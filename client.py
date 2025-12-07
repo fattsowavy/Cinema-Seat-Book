@@ -7,6 +7,19 @@ import tkinter as tk
 from tkinter import messagebox
 import xmlrpc.client
 
+# ============================================================
+# KONFIGURASI SERVER
+# ============================================================
+# Untuk koneksi LOKAL (komputer yang sama):
+SERVER_HOST = "localhost"
+
+# Untuk koneksi dari KOMPUTER LAIN di jaringan yang sama:
+# Ganti "localhost" dengan IP address komputer server
+# Contoh: SERVER_HOST = "192.168.1.100"
+# ============================================================
+
+SERVER_PORT = 8000
+
 class CinemaBookingClient:
     def __init__(self, root):
         self.root = root
